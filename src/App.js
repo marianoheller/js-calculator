@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import { buttonsConfig, buttonsOrder } from './configApp';
 
-const widthButtonera = 4; //4 botones chicos por fila
+
+//const widthButtonera = 4; //4 botones chicos por fila
+const cantRows = 5;
+
+
 
 
 class App extends Component {
@@ -72,37 +76,43 @@ class Display extends Component {
 }
 
 class Buttonera extends Component {
-  render() {
 
-    const buttons = (new Array(5*widthButtonera)).fill(0).map( (e,i) => {
-      let trO = null;
-      let trC = null;
-      if ( i%widthButtonera === 0) {
-        trO = <tr>;
-        trC = </tr>;
-      }
-      return (
-        {/*<div className="pure-u-6-24">
-          <Button key={i} value={i}></Button>
-        </div>*/}
-        {trO}
-          <td>
-            <Button key={i} value={i}></Button>
-          </td>
-        {trC}
+  getButtons() {
+    let ret = [];
 
-      );
-    });
+    for( let i=0 ; i<cantRows ; i++) {
+      ret.push(
+        (
+          <tr key={i}>
+            { 
+              buttonsOrder.reduce( (acc,buttonKey, indexButton) => {
+                if ( Math.floor(indexButton/4) !== i ) {   return acc;   }
+                const config = buttonsConfig[ buttonKey ];  
+                acc.push(
+                  <Button key={i+indexButton} config={config}></Button>
+                );
+                return acc;
+              }, [] )
+            }
+          </tr>
+        )
+      )
+    }    
+     return ret;  
+  }
+
+  render() {    
 
     return (
-      <div>
-        <table>
-          <tbody>
-            
-          </tbody>          
-        </table>
-        <div className="pure-g">
-          {buttons}
+      <div className="pure-g">
+        <div className="pure-u-1">
+          <div className=" buttonera-container">
+            <table className="pure-table pure-table-bordered">
+              <tbody>
+                {this.getButtons()}
+              </tbody>          
+            </table>
+          </div>
         </div>
       </div>
     );
@@ -110,13 +120,22 @@ class Buttonera extends Component {
 }
 
 class Button extends Component {
+
+  handleClick(e) {
+    const { config } = this.props;
+    console.log(config.symbol);
+  }
+
   render() {
+    const { config } = this.props;
     return (
-      <div className="pure-g">
-        <div className="pure-u-1">
-          <div>{this.props.value}</div>
+      <td onClick={this.handleClick.bind(this)}  className="button-calc" rowSpan={config.rowSpan} colSpan={config.colSpan}>
+        <div className="pure-g">
+          <div className="pure-u-1">
+            <div>{config.symbol}</div>
+          </div>
         </div>
-      </div>
+      </td>
     )
   }
 }
