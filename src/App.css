@@ -22,3 +22,12 @@ td {
   text-align: center;
   display: inline-block;
 }
+
+#sd-input {
+  float: left;
+}
+
+#sd-op {
+  float: right;
+}
+

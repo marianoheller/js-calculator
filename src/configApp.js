@@ -2,52 +2,52 @@
 
 export const buttonsConfig = {
   0: {
-    symbol: 0,
+    symbol: "0",
     colSpan: 2,
     rowSpan: 1,
   },
   1: {
-    symbol: 1,
+    symbol: "1",
     colSpan: 1,
     rowSpan: 1,
   },
   2: {
-    symbol: 2,
+    symbol: "2",
     colSpan: 1,
     rowSpan: 1,
   },
   3: {
-    symbol: 3,
+    symbol: "3",
     colSpan: 1,
     rowSpan: 1,
   },
   4: {
-    symbol: 4,
+    symbol: "4",
     colSpan: 1,
     rowSpan: 1,
   },
   5: {
-    symbol: 5,
+    symbol: "5",
     colSpan: 1,
     rowSpan: 1,
   },
   6: {
-    symbol: 6,
+    symbol: "6",
     colSpan: 1,
     rowSpan: 1,
   },
   7: {
-    symbol: 7,
+    symbol: "7",
     colSpan: 1,
     rowSpan: 1,
   },
   8: {
-    symbol: 8,
+    symbol: "8",
     colSpan: 1,
     rowSpan: 1,
   },
   9: {
-    symbol: 9,
+    symbol: "9",
     colSpan: 1,
     rowSpan: 1,
   },
