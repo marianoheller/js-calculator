@@ -20,19 +20,93 @@ export default class Calculator extends Component {
         }
     }
 
+    parseInput( input ) {
+        const regex = /x|-|\+/g;
 
-    getDisplay() {
+        const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => parseFloat(e) );
+        const opsInput = input.split("").filter( (e) => e.match(regex));
+        
+        // console.log(dataInput, opsInput);
+
+        return {
+            dataInput: dataInput,
+            opsInput: opsInput
+        }
+    }
+
+
+    compute( { dataInput=[], opsInput=[] } ) {
+
+        var ops = [
+    	    {'x': (a, b) => a*b, '/': (a, b) => a/b},
+            {'+': (a, b) => a+b, '-': (a, b) => a-b}  ]
+        
+        let offset = 0;
+
+        if ( dataInput.length > 1) {
+            ops.forEach( (op) => {
+                offset = 0;
+                opsInput.forEach( (opInput, indexOp) => {
+                    if ( op.hasOwnProperty(opInput) ) {
+                        // console.log("dataInput", dataInput, "indexOP", indexOp, "offset", offset, "op", opInput, "opsInput", opsInput);
+                        if ( dataInput[indexOp - offset + 1] ) {
+                            const a = dataInput[indexOp - offset];
+                            const b = dataInput[indexOp + 1 - offset];
+                            // console.log("a", a, typeof(a), indexOp - offset);
+                            // console.log("b", b, typeof(b), indexOp - offset + 1);
+                            dataInput.splice(indexOp - offset, 2 ,op[opInput](a,b) );
+                            offset++;
+                        }
+                    }
+                });
+                opsInput = opsInput.filter( (e) => !Object.keys(op).includes(e) );
+            });
+        }
+        if ( dataInput.length > 1) {
+            console.log("Resultado", dataInput);
+            throw Error("Error de computo")
+        }
+        return dataInput.length === 0 ? 0 : dataInput[0];
+    }
+
+    clearAllMemory() {
+        this.setState( {
+            ...this.state,
+            display: {
+                ...this.state.display,
+                bigDisplay: "",
+                smallDisplay: ""
+            }
+        });
+    }
+
+
+    getDisplay( ) {
         return this.state.display;
+    }
+
+
+    handleInput(input) {
+        switch (input) {
+            case "CE":
+            case "AC":
+                this.clearAllMemory();
+                break;
+            default:
+                this.setBigDisplay(input);
+                break;
+
+        }
     }
 
     setBigDisplay(input) {
 
-        let newBigDisplay = this.state.display.bigDisplay + input;
-        let newSmallDisplay = (new Processor(newBigDisplay)).compute();
+        let newBigDisplay = this.state.display.smallDisplay;
+        let newSmallDisplay = "";
 
-        if( input === '=') {
-            newBigDisplay = newSmallDisplay;
-            newSmallDisplay = ""
+        if( input !== '=') {
+            newBigDisplay = this.state.display.bigDisplay + input;
+            newSmallDisplay = this.compute( this.parseInput( newBigDisplay ) );
         }
         
         this.setState( {
@@ -44,8 +118,6 @@ export default class Calculator extends Component {
             }
         });
     }
-
-
 
     render() {
         return (
@@ -65,29 +137,13 @@ export default class Calculator extends Component {
 
             <div className="pure-u-6-24"></div>
             <div className="pure-u-12-24">
-                <Buttonera  setInput={this.setBigDisplay.bind(this)} ></Buttonera>
+                <Buttonera  setInput={this.handleInput.bind(this)} ></Buttonera>
             </div>
             <div className="pure-u-6-24"></div>
 
         </div>
         );
     }
-}
-
-
-class Processor {
-
-    constructor( inputString) {
-        this.inputString = inputString;
-
-    }
-
-
-    compute( ) {
-        return "123";
-
-    }
-
 }
 
 
