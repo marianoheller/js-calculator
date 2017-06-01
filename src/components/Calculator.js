@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Decimal from 'decimal.js';
+import R from 'ramda';
 
 
 import Buttonera from './Buttonera';
