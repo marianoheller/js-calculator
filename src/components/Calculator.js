@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 import Buttonera from './Buttonera';
 import Display from './Display';
 
@@ -15,7 +16,7 @@ export default class Calculator extends Component {
         this.state = {
             display: {
                 bigDisplay: "",
-                smallDispaly: ""
+                smallDisplay: ""
             }
         }
     }
@@ -69,13 +70,18 @@ export default class Calculator extends Component {
         return dataInput.length === 0 ? 0 : dataInput[0];
     }
 
-    clearAllMemory() {
+    clearMemory(all=true) {
+        let newBigDisplay = "";
+        let newSmallDisplay = this.state.display.smallDisplay;
+        if ( all ) {
+            newSmallDisplay = "";
+        }
         this.setState( {
             ...this.state,
             display: {
                 ...this.state.display,
-                bigDisplay: "",
-                smallDisplay: ""
+                bigDisplay: newBigDisplay,
+                smallDisplay: newSmallDisplay
             }
         });
     }
@@ -89,8 +95,10 @@ export default class Calculator extends Component {
     handleInput(input) {
         switch (input) {
             case "CE":
+                this.clearMemory(false);
+                break;
             case "AC":
-                this.clearAllMemory();
+                this.clearMemory(true);
                 break;
             default:
                 this.setBigDisplay(input);
