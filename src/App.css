@@ -2,16 +2,57 @@
   text-align: center;
 }
 
+.calculator-container {
+  background-color: #222;
+  color: white;
+  border-radius: 6px;
+  padding: 5px;
+}
 
+
+.display-container {
+  
+}
+
+.display {
+  background-color: white;
+  color: #444;
+  text-align: right;
+  padding: 0px 5px 0px 5px;
+  font-family: 'Roboto', sans-serif !important;
+
+  height: 66px;
+}
+
+.pure-table, .pure-table td {
+  border: none;
+}
+
+.calc-text {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.big-display {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: x-large;
+  padding: 5px 0px 5px 0px;
+}
+
+.small-display {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: small;
+  padding: 5px 0px 5px 0px;
+}
 
 .button-calc {
-  color: black;
-  background-color: white;
+  color: white;
+  background-color: #444 !important;
+  cursor: pointer;
 }
 
 .button-calc:hover {
   color: white;
-  background-color: black;
+  background-color: #333 !important;
 }
 
 td {
@@ -20,7 +61,7 @@ td {
 
 .buttonera-container {
   text-align: center;
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 #sd-input {
@@ -31,3 +72,12 @@ td {
   float: right;
 }
 
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome and Opera */
+}

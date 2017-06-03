@@ -14,10 +14,10 @@ export default class Button extends Component {
   render() {
     const { config } = this.props;
     return (
-      <td onClick={this.handleClick.bind(this)}  className="button-calc" rowSpan={config.rowSpan} colSpan={config.colSpan}>
-        <div className="pure-g">
-          <div className="pure-u-1">
-            <div>{config.symbol}</div>
+      <td onClick={this.handleClick.bind(this)}  className="button-calc no-select" rowSpan={config.rowSpan} colSpan={config.colSpan}>
+        <div className="pure-g no-select">
+          <div className="pure-u-1 no-select">
+            <div className="no-select calc-text">{config.symbol}</div>
           </div>
         </div>
       </td>

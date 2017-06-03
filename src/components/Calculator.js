@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import Decimal from 'decimal.js';
 import R from 'ramda';
-
+import keydown from 'react-keydown';
 
 import Buttonera from './Buttonera';
 import Display from './Display';
-
 import { buttonsConfig } from '../configApp';
 
 
-
+@keydown( KEYS )
 export default class Calculator extends Component {
 
     constructor(props) {
@@ -22,6 +21,14 @@ export default class Calculator extends Component {
             }
         }
     }
+
+    componentWillReceiveProps( { keydown } ) {
+        if ( keydown.event ) {
+        // inspect the keydown event and decide what to do 
+        console.log( keydown.event.which );
+        }
+    }
+
 
     parseInput( input ) {
         const regex = /x|-|\+/g;
@@ -72,12 +79,9 @@ export default class Calculator extends Component {
         return dataInput.length === 0 ? 0 : dataInput[0];
     }
 
-    clearMemory(all=true) {
+    clearMemory() {
         let newBigDisplay = "";
-        let newSmallDisplay = this.state.display.smallDisplay;
-        if ( all ) {
-            newSmallDisplay = "";
-        }
+        let newSmallDisplay = "";
         this.setState( {
             ...this.state,
             display: {
@@ -88,6 +92,23 @@ export default class Calculator extends Component {
         });
     }
 
+    deleteInput() {
+        const { bigDisplay } = this.state.display;
+        if ( bigDisplay.length === 0 ) {   return;   }
+
+        const newBigDisplay = bigDisplay.substr( 0, bigDisplay.length-1);
+        const newSmallDisplay = this.compute( this.parseInput( newBigDisplay ) );
+
+        this.setState( {
+            ...this.state,
+            display: {
+                ...this.state.display,
+                bigDisplay: newBigDisplay,
+                smallDisplay: newSmallDisplay
+            }
+        })
+
+    }
 
     getDisplay( ) {
         return this.state.display;
@@ -96,11 +117,11 @@ export default class Calculator extends Component {
 
     handleInput(input) {
         switch (input) {
-            case "CE":
-                this.clearMemory(false);
+            case "DEL":
+                this.deleteInput();
                 break;
             case "AC":
-                this.clearMemory(true);
+                this.clearMemory();
                 break;
             default:
                 this.setBigDisplay(input);
@@ -131,27 +152,24 @@ export default class Calculator extends Component {
 
     render() {
         return (
-        <div className="pure-g">
-            
-            <div className="pure-u-6-24"></div>
-            <div className="pure-u-12-24">
-                <Header></Header>
+            <div className="pure-g">
+                <div className="pure-u-6-24"></div>
+                <div className="pure-u-12-24">
+                    <div className="pure-g calculator-container">
+                        <div className="pure-u-1">
+                            <Header></Header>
+                        </div>
+                        <div className="pure-u-1">
+                            <Display display={this.getDisplay()}></Display>
+                        </div>
+                        <div className="pure-u-1">
+                            <Buttonera  setInput={this.handleInput.bind(this)} ></Buttonera>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div className="pure-u-6-24"></div>
             </div>
-            <div className="pure-u-6-24"></div>
-            
-            <div className="pure-u-6-24"></div>
-            <div className="pure-u-12-24">
-                <Display display={this.getDisplay()}></Display>
-            </div>
-            <div className="pure-u-6-24"></div>
-
-            <div className="pure-u-6-24"></div>
-            <div className="pure-u-12-24">
-                <Buttonera  setInput={this.handleInput.bind(this)} ></Buttonera>
-            </div>
-            <div className="pure-u-6-24"></div>
-
-        </div>
         );
     }
 }
@@ -162,8 +180,8 @@ class Header extends Component {
   render() {
     return (
       <div className="pure-g">
-        <div className="pure-u-1">
-          <p>FCC Calculator</p>
+        <div className="pure-u-1 title">
+          <img src="https://s3.amazonaws.com/freecodecamp/freecodecamp_logo.svg" alt="FCC logo"/>
         </div>
       </div>
     );

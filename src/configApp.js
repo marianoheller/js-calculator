@@ -86,15 +86,15 @@ export const buttonsConfig = {
     colSpan: 1,
     rowSpan: 1
   },
-  CE: {
-    symbol: "CE",
+  DEL: {
+    symbol: "DEL",
     colSpan: 1,
     rowSpan: 1
   }
 }
 
 export  const buttonsOrder = [
-    "AC", "CE", "divide", "multiply",
+    "AC", "DEL", "divide", "multiply",
     7, 8, 9, "subtract",
     4, 5, 6,  "add",
     1, 2 ,3 , "equal",
