@@ -1,9 +1,13 @@
+body {
+  background-image: url("./img/desk.jpg");
+  background-size: 200%;
+}
 .App {
-  text-align: center;
+  text-align: center;  
 }
 
 .calculator-container {
-  background-color: #222;
+  background-color: rgba(2, 2, 2, 0.70);
   color: white;
   border-radius: 6px;
   padding: 5px;
@@ -17,7 +21,8 @@
 }
 
 .display {
-  background-color: white;
+  background-color: rgba(255,255,255,0.90);
+  border-radius: 1px;
   color: #444;
   text-align: right;
   padding: 0px 5px 0px 5px;
@@ -83,13 +88,13 @@ p {
 
 .button-calc {
   color: white;
-  background-color: #444 !important;
+  background-color: rgba(66,66,66,0.60) !important;
   cursor: pointer;
 }
 
 .button-calc:hover {
   color: white;
-  background-color: #333 !important;
+  background-color: rgba(44,44,44,0.40) !important;
 }
 
 
@@ -115,3 +120,4 @@ p {
   user-select: none; /* Non-prefixed version, currently
                         supported by Chrome and Opera */
 }
+

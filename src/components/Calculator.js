@@ -37,7 +37,7 @@ export default class Calculator extends Component {
 
     parseInput( input ) {
         const regex = /x|-|\+|\u00F7/g;
-        Decimal.set({ precision: 5, rounding: 4 })
+        // Decimal.set({ precision: 10, rounding: 9 })
 
         const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
         const opsInput = input.split("").filter( (e) => e.match(regex));
@@ -163,10 +163,12 @@ export default class Calculator extends Component {
 
     render() {
         return (
-            <div className="pure-g">
+            <div className="pure-g" >
                 <div className="pure-u-6-24"></div>
                 <div className="pure-u-12-24">
-                    <div className="pure-g calculator-container">
+                    <div className="pure-g calculator-container"  data-balloon-length="medium"
+                    data-balloon="ProTip: You can also use the keyboard to type!"
+                    data-balloon-pos="right">
                         <div className="pure-u-1">
                             <Header></Header>
                         </div>
