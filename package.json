@@ -5,10 +5,10 @@
   "private": true,
   "dependencies": {
     "decimal.js": "^7.2.1",
-    "ramda": "^0.24.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-keydown": "^1.7.3"
+    "react-keydown": "^1.7.3",
+    "react-tooltip": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.0",

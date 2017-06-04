@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Decimal from 'decimal.js';
-import R from 'ramda';
 import keydown from 'react-keydown';
+import ReactTooltip from 'react-tooltip'
+
 
 import Buttonera from './Buttonera';
 import Display from './Display';
@@ -166,9 +167,8 @@ export default class Calculator extends Component {
             <div className="pure-g" >
                 <div className="pure-u-6-24"></div>
                 <div className="pure-u-12-24">
-                    <div className="pure-g calculator-container"  data-balloon-length="medium"
-                    data-balloon="ProTip: You can also use the keyboard to type!"
-                    data-balloon-pos="right">
+                    <div className="pure-g calculator-container"  
+                    data-tip="ProTip: You can also use the keyboard to type!">
                         <div className="pure-u-1">
                             <Header></Header>
                         </div>
@@ -182,6 +182,7 @@ export default class Calculator extends Component {
                     
                 </div>
                 <div className="pure-u-6-24"></div>
+                <ReactTooltip place="right" type="dark" effect="solid"/>
             </div>
         );
     }
