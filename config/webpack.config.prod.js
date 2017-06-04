@@ -160,7 +160,10 @@ module.exports = {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
         loader: require.resolve('babel-loader'),
-        
+        options: {
+          presets: ['react-app', 'latest', 'stage-0'],
+          plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
+        },
       },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.

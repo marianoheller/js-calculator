@@ -37,8 +37,9 @@ export default class Calculator extends Component {
 
     parseInput( input ) {
         const regex = /x|-|\+|\u00F7/g;
+        Decimal.set({ precision: 5, rounding: 4 })
 
-        const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => parseFloat(e) );
+        const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
         const opsInput = input.split("").filter( (e) => e.match(regex));
         
         // console.log(dataInput, opsInput);
@@ -54,8 +55,8 @@ export default class Calculator extends Component {
 
         const divChar = String.fromCharCode(247);
         var ops = [
-    	    {'x': (a, b) => a*b, [divChar]: (a, b) => a/b},
-            {'+': (a, b) => a+b, '-': (a, b) => a-b}  ];
+    	    {'x': (a, b) => a.times(b), [divChar]: (a, b) => a.div(b)},
+            {'+': (a, b) => a.plus(b), '-': (a, b) => a.minus(b) }  ];
         
         let offset = 0;
 
@@ -82,7 +83,7 @@ export default class Calculator extends Component {
             console.log("Resultado", dataInput, opsInput );
             throw Error("Error de computo")
         }
-        return dataInput.length === 0 ? 0 : dataInput[0];
+        return dataInput.length === 0 ? 0 : dataInput[0].toString();
     }
 
     clearMemory() {
