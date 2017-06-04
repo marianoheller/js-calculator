@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 export class BigDisplay extends Component {
     render() {
         return (
-            <div className="pure-g">
+            <div className="pure-g big-display-container">
                 <div className="pure-u-1 big-display">
-                    {this.props.input}
+                    <p>{this.props.input}</p>
                 </div>
             </div>
         )
@@ -20,7 +20,7 @@ export class SmallDisplay extends Component {
         return (
             <div className="pure-g">
                 <div className="pure-u-1 small-display">
-                    {this.props.input}
+                    <p>{this.props.input}</p>
                 </div>
             </div>
         )

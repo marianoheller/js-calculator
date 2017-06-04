@@ -8,7 +8,7 @@ import Display from './Display';
 import { buttonsConfig } from '../configApp';
 
 
-@keydown( KEYS )
+@keydown
 export default class Calculator extends Component {
 
     constructor(props) {
@@ -24,14 +24,19 @@ export default class Calculator extends Component {
 
     componentWillReceiveProps( { keydown } ) {
         if ( keydown.event ) {
-        // inspect the keydown event and decide what to do 
-        console.log( keydown.event.which );
+            const keyFound = Object.keys(buttonsConfig).find( (key) => {
+                return buttonsConfig[key].key.some( (e) => e ===keydown.event.key )
+            });
+            if ( keyFound ) {
+                this.handleInput(buttonsConfig[keyFound].symbol);
+            }
+            
         }
     }
 
 
     parseInput( input ) {
-        const regex = /x|-|\+/g;
+        const regex = /x|-|\+|\u00F7/g;
 
         const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => parseFloat(e) );
         const opsInput = input.split("").filter( (e) => e.match(regex));
@@ -47,9 +52,10 @@ export default class Calculator extends Component {
 
     compute( { dataInput=[], opsInput=[] } ) {
 
+        const divChar = String.fromCharCode(247);
         var ops = [
-    	    {'x': (a, b) => a*b, '/': (a, b) => a/b},
-            {'+': (a, b) => a+b, '-': (a, b) => a-b}  ]
+    	    {'x': (a, b) => a*b, [divChar]: (a, b) => a/b},
+            {'+': (a, b) => a+b, '-': (a, b) => a-b}  ];
         
         let offset = 0;
 
@@ -59,7 +65,7 @@ export default class Calculator extends Component {
                 opsInput.forEach( (opInput, indexOp) => {
                     if ( op.hasOwnProperty(opInput) ) {
                         // console.log("dataInput", dataInput, "indexOP", indexOp, "offset", offset, "op", opInput, "opsInput", opsInput);
-                        if ( dataInput[indexOp - offset + 1] ) {
+                        if ( dataInput[indexOp - offset + 1] !== undefined ) {
                             const a = dataInput[indexOp - offset];
                             const b = dataInput[indexOp + 1 - offset];
                             // console.log("a", a, typeof(a), indexOp - offset);
@@ -73,7 +79,7 @@ export default class Calculator extends Component {
             });
         }
         if ( dataInput.length > 1) {
-            console.log("Resultado", dataInput);
+            console.log("Resultado", dataInput, opsInput );
             throw Error("Error de computo")
         }
         return dataInput.length === 0 ? 0 : dataInput[0];
@@ -97,7 +103,11 @@ export default class Calculator extends Component {
         if ( bigDisplay.length === 0 ) {   return;   }
 
         const newBigDisplay = bigDisplay.substr( 0, bigDisplay.length-1);
-        const newSmallDisplay = this.compute( this.parseInput( newBigDisplay ) );
+        let newSmallDisplay = "";
+        if ( newBigDisplay.length !== 0) {
+            newSmallDisplay = this.compute( this.parseInput( newBigDisplay ) );
+        }
+        
 
         this.setState( {
             ...this.state,
