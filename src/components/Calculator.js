@@ -36,14 +36,28 @@ export default class Calculator extends Component {
 
 
     parseInput( input ) {
-        const regexSignados = /x|(?<=[0-9])-|(?<=[0-9])\+|\u00F7/g
-        // const regex = /x|-|\+|\u00F7/g;
+        //const regexSignados = /x|(?<=[0-9])-|(?<=[0-9])\+|\u00F7/g;
+        const regexSignos = /x|[0-9]-|[0-9]\+/g;
+        const regexParaData = /x|-(?=[0-9])|\+(?=[0-9])|\u00F7/g; //Regex para input reversed con lookahead
         // Decimal.set({ precision: 10, rounding: 9 })
 
         //const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
         //const opsInput = input.split("").filter( (e) => e.match(regex));
-        const dataInput = input.split( regexSignados ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
-        const opsInput = input.match(regexSignados);
+        const dataInput = input.split("").reverse().join("")
+                            .split( regexParaData ).reverse()
+                            .map( (e) => e.split("").reverse().join(""))
+                            .filter( (e) => e !== "" )
+                            .map((e) => new Decimal( parseFloat(e) ) );
+
+        const auxOpsInput = input.match(regexSignos);
+        let opsInput = [];
+        if ( auxOpsInput ) {
+            opsInput = input.match(regexSignos).reduce( (acc,e) => {
+                e = e.split("").filter( (w) => isNaN(w) );
+                acc.push(e)
+                return  acc;
+            }, [] );
+        }
         
 
         return {
