@@ -37,7 +37,7 @@ export default class Calculator extends Component {
 
     parseInput( input ) {
         //const regexSignados = /x|(?<=[0-9])-|(?<=[0-9])\+|\u00F7/g;
-        const regexSignos = /x|[0-9]-|[0-9]\+/g;
+        const regexSignos = /x|[0-9]-|[0-9]\+|\u00F7/g;
         const regexParaData = /x|-(?=[0-9])|\+(?=[0-9])|\u00F7/g; //Regex para input reversed con lookahead
         // Decimal.set({ precision: 10, rounding: 9 })
 
@@ -99,7 +99,9 @@ export default class Calculator extends Component {
             console.log("Resultado", dataInput, opsInput );
             throw Error("Error de computo")
         }
-        return dataInput.length === 0 ? 0 : dataInput[0].toString();
+        if ( dataInput.length === 0 ) {   return 0;   }
+        const res = !dataInput[0].isFinite() ? "NaN" : dataInput.toString();
+        return res;
     }
 
     clearMemory() {
@@ -158,9 +160,14 @@ export default class Calculator extends Component {
     }
 
     setBigDisplay(input) {
+        const { smallDisplay } = this.state.display;
 
         let newBigDisplay = this.state.display.smallDisplay;
         let newSmallDisplay = "";
+
+        if ( smallDisplay === "NaN") {
+            newBigDisplay = "";
+        }
 
         if( input !== '=') {
             newBigDisplay = this.state.display.bigDisplay + input;
