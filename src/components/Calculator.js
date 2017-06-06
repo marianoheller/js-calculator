@@ -36,13 +36,15 @@ export default class Calculator extends Component {
 
 
     parseInput( input ) {
-        const regex = /x|-|\+|\u00F7/g;
+        const regexSignados = /x|(?<=[0-9])-|(?<=[0-9])\+|\u00F7/g
+        // const regex = /x|-|\+|\u00F7/g;
         // Decimal.set({ precision: 10, rounding: 9 })
 
-        const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
-        const opsInput = input.split("").filter( (e) => e.match(regex));
+        //const dataInput = input.split( regex ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
+        //const opsInput = input.split("").filter( (e) => e.match(regex));
+        const dataInput = input.split( regexSignados ).filter( (e) => e !== "" ).map((e) => new Decimal(parseFloat(e)) );
+        const opsInput = input.match(regexSignados);
         
-        // console.log(dataInput, opsInput);
 
         return {
             dataInput: dataInput,
