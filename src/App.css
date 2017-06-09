@@ -40,6 +40,10 @@ body {
   text-align: center;
 }
 
+td {
+  width: 25%;
+}
+
 
 .pure-table {
   width: 100% !important;
