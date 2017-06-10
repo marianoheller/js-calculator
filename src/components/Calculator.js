@@ -6,7 +6,7 @@ import Buttonera from './Buttonera';
 import Display from './Display';
 import { buttonsConfig } from '../configApp';
 
-import { compute, parseInput } from "./Misc";
+import { compute, parseInput, filterInput } from "./Misc";
 
 
 @keydown
@@ -79,12 +79,16 @@ export default class Calculator extends Component {
 
 
     handleInput(input) {
+        input = filterInput(input, this.state.display.bigDisplay);
         switch (input) {
             case "DEL":
                 this.deleteInput();
                 break;
             case "AC":
                 this.clearMemory();
+                break;
+            case null:
+            case undefined:
                 break;
             default:
                 this.setBigDisplay(input);

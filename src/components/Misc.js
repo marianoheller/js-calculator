@@ -72,3 +72,25 @@ export function compute( { dataInput=[], opsInput=[] } ) {
 }
 
 
+export function filterInput( input, bigDisplay ) {
+    if ( bigDisplay.length === 0  || input.match(/[0-9]/) ) {   return input;   }
+    if ( input.match(/\.|x|\u00F7/) ) {
+        const lastCharacter = bigDisplay[bigDisplay.length-1];
+        if ( lastCharacter.match(/\.|x|-|\+|\u00F7/) )  {   
+            return undefined;   
+        }
+    }
+    else if ( input.match(/\+|-/) ) {
+        if ( bigDisplay.length < 2 ) {   return input;   }
+        const lastCharacters = bigDisplay.substr(-2, 2);
+        const matches = lastCharacters.match(/x|-|\+|\u00F7/g);
+        const matchesDot = lastCharacters.match(/\./);
+        if ( (matches && matches.length >= 2) || (matchesDot && matchesDot.length >= 1) ) {
+            return undefined;
+        }
+    }
+    const auxBigDisplay = bigDisplay.split(/x|-|\+|\u00F7/g);
+    const lastWord = auxBigDisplay[auxBigDisplay.length-1];
+    if( lastWord && lastWord.match(/\./) && input.match(/\./)) {   return undefined;   }
+    return input;
+}
