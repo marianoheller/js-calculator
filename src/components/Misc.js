@@ -63,7 +63,7 @@ export function compute( { dataInput=[], opsInput=[] } ) {
         });
     }
     if ( dataInput.length > 1) {
-        console.log("Resultado", dataInput, opsInput );
+        // console.log("Resultado", dataInput, opsInput );
         throw Error("Error de computo")
     }
     if ( dataInput.length === 0 ) {   return 0;   }
@@ -73,10 +73,11 @@ export function compute( { dataInput=[], opsInput=[] } ) {
 
 
 export function filterInput( input, bigDisplay ) {
-    if ( bigDisplay.length === 0  || input.match(/[0-9]/) ) {   return input;   }
+    if ( bigDisplay.length === 0 && input.match(/x|\u00F7/g)  ) {   return undefined;   }
+    if ( (bigDisplay.length === 0 ) || input.match(/[0-9]/) ) {   return input;   }
     if ( input.match(/\.|x|\u00F7/) ) {
         const lastCharacter = bigDisplay[bigDisplay.length-1];
-        if ( lastCharacter.match(/\.|x|-|\+|\u00F7/) )  {   
+        if ( lastCharacter && lastCharacter.match(/\.|x|-|\+|\u00F7/) )  {   
             return undefined;   
         }
     }
@@ -84,7 +85,8 @@ export function filterInput( input, bigDisplay ) {
         if ( bigDisplay.length < 2 ) {   return input;   }
         const lastCharacters = bigDisplay.substr(-2, 2);
         const matches = lastCharacters.match(/x|-|\+|\u00F7/g);
-        const matchesDot = lastCharacters.match(/\./);
+        const matchesDot = lastCharacters.match(/\./g);
+        //console.log(matches, matchesDot);
         if ( (matches && matches.length >= 2) || (matchesDot && matchesDot.length >= 1) ) {
             return undefined;
         }
