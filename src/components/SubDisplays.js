@@ -7,7 +7,7 @@ export class BigDisplay extends Component {
         return (
             <div className="pure-g big-display-container">
                 <div className="pure-u-1 big-display">
-                    <p>{this.props.input}</p>
+                    <p id="display">{this.props.input}</p>
                 </div>
             </div>
         )

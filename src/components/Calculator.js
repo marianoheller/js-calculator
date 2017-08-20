@@ -6,7 +6,7 @@ import Buttonera from './Buttonera';
 import Display from './Display';
 import { buttonsConfig } from '../configApp';
 
-import { compute, parseInput, filterInput } from "./Misc";
+import { compute, parseInput, filterInput } from "./Engine";
 
 
 @keydown
@@ -17,8 +17,8 @@ export default class Calculator extends Component {
 
         this.state = {
             display: {
-                bigDisplay: "",
-                smallDisplay: ""
+                bigDisplay: "0",
+                smallDisplay: "0"
             }
         }
     }
@@ -36,11 +36,9 @@ export default class Calculator extends Component {
     }
 
 
-    
-
     clearMemory() {
-        let newBigDisplay = "";
-        let newSmallDisplay = "";
+        let newBigDisplay = "0";
+        let newSmallDisplay = "0";
         this.setState( {
             ...this.state,
             display: {
@@ -55,7 +53,8 @@ export default class Calculator extends Component {
         const { bigDisplay } = this.state.display;
         if ( bigDisplay.length === 0 ) {   return;   }
 
-        const newBigDisplay = bigDisplay.substr( 0, bigDisplay.length-1);
+        let newBigDisplay = bigDisplay.substr( 0, bigDisplay.length-1);
+        if ( newBigDisplay == '' ) newBigDisplay='0'; 
         let newSmallDisplay = "";
         if ( newBigDisplay.length !== 0) {
             newSmallDisplay = compute( parseInput( newBigDisplay ) );
@@ -108,7 +107,9 @@ export default class Calculator extends Component {
         }
 
         if( input !== '=') {
-            newBigDisplay = this.state.display.bigDisplay + input;
+            newBigDisplay = this.state.display.bigDisplay != '0' ?
+                            this.state.display.bigDisplay + input
+                            : input;
             newSmallDisplay = compute( parseInput( newBigDisplay ) );
         }
         

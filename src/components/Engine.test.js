@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import { compute, parseInput } from "./Misc";
+import { compute, parseInput } from "./Engine";
 
 const expectedParsed = [
         {

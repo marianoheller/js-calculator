@@ -36,6 +36,8 @@ export function parseInput( input ) {
 
 export function compute( { dataInput=[], opsInput=[] } ) {
 
+    console.log(dataInput, opsInput);
+
     const divChar = String.fromCharCode(247);
     var ops = [
         {'x': (a, b) => a.times(b), [divChar]: (a, b) => a.div(b)},
@@ -48,12 +50,9 @@ export function compute( { dataInput=[], opsInput=[] } ) {
             offset = 0;
             opsInput.forEach( (opInput, indexOp) => {
                 if ( op.hasOwnProperty(opInput) ) {
-                    // console.log("dataInput", dataInput, "indexOP", indexOp, "offset", offset, "op", opInput, "opsInput", opsInput);
                     if ( dataInput[indexOp - offset + 1] !== undefined ) {
                         const a = dataInput[indexOp - offset];
                         const b = dataInput[indexOp + 1 - offset];
-                        // console.log("a", a, typeof(a), indexOp - offset);
-                        // console.log("b", b, typeof(b), indexOp - offset + 1);
                         dataInput.splice(indexOp - offset, 2 ,op[opInput](a,b) );
                         offset++;
                     }
@@ -63,7 +62,6 @@ export function compute( { dataInput=[], opsInput=[] } ) {
         });
     }
     if ( dataInput.length > 1) {
-        // console.log("Resultado", dataInput, opsInput );
         throw Error("Error de computo")
     }
     if ( dataInput.length === 0 ) {   return 0;   }
@@ -81,16 +79,16 @@ export function filterInput( input, bigDisplay ) {
             return undefined;   
         }
     }
-    else if ( input.match(/\+|-/) ) {
+    /* if ( input.match(/\+|-/) ) {
         if ( bigDisplay.length < 2 ) {   return input;   }
         const lastCharacters = bigDisplay.substr(-2, 2);
         const matches = lastCharacters.match(/x|-|\+|\u00F7/g);
         const matchesDot = lastCharacters.match(/\./g);
         //console.log(matches, matchesDot);
-        if ( (matches && matches.length >= 2) || (matchesDot && matchesDot.length >= 1) ) {
+        if ( (matches && matches.length >= 2) || (matchesDot && matchesDot.length > 1) ) {
             return undefined;
         }
-    }
+    } */
     const auxBigDisplay = bigDisplay.split(/x|-|\+|\u00F7/g);
     const lastWord = auxBigDisplay[auxBigDisplay.length-1];
     if( lastWord && lastWord.match(/\./) && input.match(/\./)) {   return undefined;   }

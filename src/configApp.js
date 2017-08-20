@@ -2,6 +2,7 @@
 
 export const buttonsConfig = {
   0: {
+    id: "zero",
     symbol: "0",
     colSpan: 2,
     rowSpan: 1,
@@ -10,6 +11,7 @@ export const buttonsConfig = {
     ],
   },
   1: {
+    id: "one",
     symbol: "1",
     colSpan: 1,
     rowSpan: 1,
@@ -18,6 +20,7 @@ export const buttonsConfig = {
     ],
   },
   2: {
+    id: "two",
     symbol: "2",
     colSpan: 1,
     rowSpan: 1,
@@ -26,6 +29,7 @@ export const buttonsConfig = {
     ],
   },
   3: {
+    id: "three",
     symbol: "3",
     colSpan: 1,
     rowSpan: 1,
@@ -34,6 +38,7 @@ export const buttonsConfig = {
     ],
   },
   4: {
+    id: "four",
     symbol: "4",
     colSpan: 1,
     rowSpan: 1,
@@ -42,6 +47,7 @@ export const buttonsConfig = {
     ],
   },
   5: {
+    id: "five",
     symbol: "5",
     colSpan: 1,
     rowSpan: 1,
@@ -50,6 +56,7 @@ export const buttonsConfig = {
     ],
   },
   6: {
+    id: "six",
     symbol: "6",
     colSpan: 1,
     rowSpan: 1,
@@ -58,6 +65,7 @@ export const buttonsConfig = {
     ],
   },
   7: {
+    id: "seven",
     symbol: "7",
     colSpan: 1,
     rowSpan: 1,
@@ -66,6 +74,7 @@ export const buttonsConfig = {
     ],
   },
   8: {
+    id: "eight",
     symbol: "8",
     colSpan: 1,
     rowSpan: 1,
@@ -74,6 +83,7 @@ export const buttonsConfig = {
     ],
   },
   9: {
+    id: "nine",
     symbol: "9",
     colSpan: 1,
     rowSpan: 1,
@@ -82,6 +92,7 @@ export const buttonsConfig = {
     ],
   },
   add: {
+    id: "add",
     symbol: "+",
     colSpan: 1,
     rowSpan: 1,
@@ -90,6 +101,7 @@ export const buttonsConfig = {
     ],
   },
   subtract: {
+    id: "subtract",
     symbol: "-",
     colSpan: 1,
     rowSpan: 1,
@@ -98,6 +110,7 @@ export const buttonsConfig = {
     ],
   },
   divide: {
+    id: "divide",
     symbol: String.fromCharCode(247), //Divide
     colSpan: 1,
     rowSpan: 1,
@@ -106,6 +119,7 @@ export const buttonsConfig = {
     ],
   },
   multiply: {
+    id: "multiply",
     symbol: "x",
     colSpan: 1,
     rowSpan: 1,
@@ -115,6 +129,7 @@ export const buttonsConfig = {
     ],
   },
   equal: {
+    id: "equals",
     symbol: "=",
     colSpan: 1,
     rowSpan: 2,
@@ -123,6 +138,7 @@ export const buttonsConfig = {
     ],
     },
   dot: {
+    id: "decimal",
     symbol: ".",
     colSpan: 1,
     rowSpan: 1,
@@ -131,6 +147,7 @@ export const buttonsConfig = {
     ],
   },
   AC: {
+    id: "clear",
     symbol: "AC",
     colSpan: 1,
     rowSpan: 1,
