@@ -54,7 +54,7 @@ export default class Calculator extends Component {
         if ( bigDisplay.length === 0 ) {   return;   }
 
         let newBigDisplay = bigDisplay.substr( 0, bigDisplay.length-1);
-        if ( newBigDisplay == '' ) newBigDisplay='0'; 
+        if ( newBigDisplay === '' ) newBigDisplay='0'; 
         let newSmallDisplay = "";
         if ( newBigDisplay.length !== 0) {
             newSmallDisplay = compute( parseInput( newBigDisplay ) );
@@ -107,7 +107,7 @@ export default class Calculator extends Component {
         }
 
         if( input !== '=') {
-            newBigDisplay = this.state.display.bigDisplay != '0' ?
+            newBigDisplay = this.state.display.bigDisplay !== '0' ?
                             this.state.display.bigDisplay + input
                             : input;
             newSmallDisplay = compute( parseInput( newBigDisplay ) );

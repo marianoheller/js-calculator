@@ -79,7 +79,7 @@ export function filterInput( input, bigDisplay ) {
             return undefined;   
         }
     }
-    /* if ( input.match(/\+|-/) ) {
+    if ( input.match(/\+|-/) ) {
         if ( bigDisplay.length < 2 ) {   return input;   }
         const lastCharacters = bigDisplay.substr(-2, 2);
         const matches = lastCharacters.match(/x|-|\+|\u00F7/g);
@@ -88,7 +88,7 @@ export function filterInput( input, bigDisplay ) {
         if ( (matches && matches.length >= 2) || (matchesDot && matchesDot.length > 1) ) {
             return undefined;
         }
-    } */
+    }
     const auxBigDisplay = bigDisplay.split(/x|-|\+|\u00F7/g);
     const lastWord = auxBigDisplay[auxBigDisplay.length-1];
     if( lastWord && lastWord.match(/\./) && input.match(/\./)) {   return undefined;   }
